@@ -1,3 +1,4 @@
+// admin-panel.js - ИСПРАВЛЕННАЯ ВЕРСИЯ
 class AdminPanel {
     constructor() {
         this.sections = JSON.parse(localStorage.getItem('adminSections')) || [];
@@ -636,6 +637,7 @@ class AdminPanel {
     }
 }
 
+// Глобальные функции
 function toggleAdminMode() {
     if (!window.adminPanel) {
         window.adminPanel = new AdminPanel();
@@ -662,478 +664,151 @@ function initAdminSystem() {
     }
 }
 
-
-window.toggleAdminMode = toggleAdminMode;
-window.adminPanel = null;
-
-$(document).ready(function() {
-    const path = window.location.pathname;
+// СИСТЕМА ЛОГИНА - УПРОЩЕННАЯ ВЕРСИЯ
+function initLoginSystem() {
+    console.log('Initializing login system...');
     
-    if (window.location.pathname.includes('index.html') || 
-        window.location.pathname.includes('login.html') ||
-        window.location.pathname === '/' ) {
-        initLoginPage();
-    }
-    if (path.includes("home.html")) initHomePage();
-    
-    initAdminSystem();
-    function initLoginSystem() {
-        console.log('Initializing login system...');
+    // Инициализация пользователей по умолчанию
+    initializeDefaultUsers();
+
+    // Обработчики вкладок
+    $('.tab-btn').on('click', function() {
+        $('.tab-btn').removeClass('active');
+        $('.form-content').removeClass('active');
+        $(this).addClass('active');
+        $('#' + $(this).data('tab') + 'Form').addClass('active');
+        $('#successMessage').hide();
+        $('#welcome').removeClass('show');
+    });
+
+    // Гостевой вход - УПРОЩЕННАЯ ВЕРСИЯ
+    $('#guestBtn').on('click', function() {
+        console.log('Guest button clicked');
+        localStorage.setItem('currentUserRole', 'guest');
+        localStorage.setItem('currentUserName', 'Guest');
+        // Немедленный переход без подтверждения
+        window.location.href = 'home.html';
+    });
+
+    // Форма логина
+    $('#loginFormElement').on('submit', function(e) {
+        e.preventDefault();
+        console.log('Login form submitted');
         
-        // Инициализация пользователей по умолчанию
-        initializeDefaultUsers();
-    
-        // Обработчики вкладок
-        $('.tab-btn').on('click', function() {
-            $('.tab-btn').removeClass('active');
-            $('.form-content').removeClass('active');
-            $(this).addClass('active');
-            $('#' + $(this).data('tab') + 'Form').addClass('active');
-            $('#successMessage').hide();
-            $('#welcome').removeClass('show');
-        });
-    
-        // Гостевой вход
-        $('#guestBtn').on('click', function() {
-            console.log('Guest button clicked');
-            localStorage.setItem('currentUserRole', 'guest');
-            localStorage.setItem('currentUserName', 'Guest');
-            window.location.href = 'home.html';
-        });
-    
-        // Форма логина
-        $('#loginFormElement').on('submit', function(e) {
-            e.preventDefault();
-            console.log('Login form submitted');
-            
-            const email = $('#loginEmail').val().trim();
-            const password = $('#loginPassword').val();
-            const $emailError = $('#loginEmailError');
-            const $passwordError = $('#loginPasswordError');
-            
-            $emailError.text('');
-            $passwordError.text('');
-            
-            let valid = true;
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
-            if (!emailPattern.test(email)) {
-                $emailError.text('Please enter a valid email.');
-                valid = false;
-            }
-            if (password.length < 6) {
-                $passwordError.text('Password must be at least 6 characters.');
-                valid = false;
-            }
-            if (!valid) return;
-    
-            // Проверка пользователей
-            const storedUsers = JSON.parse(localStorage.getItem('acaUsers')) || [];
-            const user = storedUsers.find(u => u.email === email && u.password === password);
-            
-            if (user) {
-                localStorage.setItem('currentUserRole', 'user');
-                localStorage.setItem('currentUserName', user.name);
-                showWelcome(user);
-            } else {
-                alert("Invalid email or password.");
-            }
-        });
-    
-        // Форма регистрации
-        $('#registerFormElement').on('submit', function(e) {
-            e.preventDefault();
-            console.log('Register form submitted');
-            
-            const name = $('#registerName').val().trim();
-            const email = $('#registerEmail').val().trim();
-            const password = $('#registerPassword').val();
-            const confirmPassword = $('#registerConfirmPassword').val();
-    
-            const $nameErr = $('#registerNameError');
-            const $emailErr = $('#registerEmailError');
-            const $passErr = $('#registerPasswordError');
-            const $confErr = $('#registerConfirmError');
-            
-            $nameErr.text('');
-            $emailErr.text('');
-            $passErr.text('');
-            $confErr.text('');
-            
-            let valid = true;
-    
-            if (name === '') { 
-                $nameErr.text('Enter your name'); 
-                valid = false; 
-            }
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { 
-                $emailErr.text('Invalid email'); 
-                valid = false; 
-            }
-            if (password.length < 6) { 
-                $passErr.text('Min 6 characters'); 
-                valid = false; 
-            }
-            if (password !== confirmPassword) { 
-                $confErr.text('Passwords do not match'); 
-                valid = false; 
-            }
-    
-            if (!valid) return;
-    
-            const storedUsers = JSON.parse(localStorage.getItem('acaUsers')) || [];
-            
-            if (storedUsers.find(u => u.email === email)) {
-                $emailErr.text('Email already registered.');
-                return;
-            }
-    
-            // Регистрация обычного пользователя
-            storedUsers.push({ name, email, password });
-            localStorage.setItem('acaUsers', JSON.stringify(storedUsers));
-            
-            $('#successMessage').html('<i class="fas fa-check-circle"></i> Registration successful! You can now log in.');
-            $('#successMessage').show();
-            $(this).trigger('reset');
-            
-            setTimeout(() => {
-                $('[data-tab="login"]').trigger('click');
-            }, 2000);
-        });
-    
-        function showWelcome(user) {
-            const $welcome = $('#welcome');
-            const role = localStorage.getItem('currentUserRole');
-            const roleText = role === 'admin' ? 'Administrator' : role === 'user' ? 'User' : 'Guest';
-            $welcome.text(`Welcome back, ${user.name}! (${roleText})`);
-            $welcome.addClass('show');
-            
-            // Воспроизведение звука
-            const $loginSound = $('#loginSound');
-            if ($loginSound.length) {
-                $loginSound[0].play().catch(e => console.log('Audio play failed:', e));
-            }
-            
-            // Анимация и переход
-            const $form = $('#loginFormSection');
-            $form.css('transform', 'scale(1.05)');
-            setTimeout(() => $form.css('transform', 'scale(1)'), 500);
-            
-            setTimeout(() => {
-                console.log('Redirecting to home.html...');
-                window.location.href = "home.html";
-            }, 2000);
-        }
-    
-        function initializeDefaultUsers() {
-            if (!localStorage.getItem('acaUsers')) {
-                const defaultUsers = [
-                    { name: "John Doe", email: "user@example.com", password: "password123" },
-                    { name: "Jane Smith", email: "jane@example.com", password: "password123" }
-                ];
-                localStorage.setItem('acaUsers', JSON.stringify(defaultUsers));
-                console.log('Default users initialized');
-            }
-        }
-    }
-    function initLoginPage() {
-        initializeDefaultUsers();
-
-        $('.tab-btn').on('click', function() {
-            $('.tab-btn').removeClass('active');
-            $('.form-content').removeClass('active');
-            $(this).addClass('active');
-            $('#' + $(this).data('tab') + 'Form').addClass('active');
-            $('#successMessage').hide();
-            $('#welcome').removeClass('show');
-        });
-
-        $('#guestBtn').on('click', function() {
-            if (confirm('Continue as guest?')) {
-                localStorage.setItem('currentUserRole', 'guest');
-                localStorage.setItem('currentUserName', 'Guest');
-                window.location.href = 'home.html';
-            }
-        });
-
-        $('#loginFormElement').on('submit', function(e) {
-            e.preventDefault();
-            const email = $('#loginEmail').val().trim();
-            const password = $('#loginPassword').val();
-            const $emailError = $('#loginEmailError');
-            const $passwordError = $('#loginPasswordError');
-            
-            $emailError.text('');
-            $passwordError.text('');
-            
-            let valid = true;
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
-            if (!emailPattern.test(email)) {
-                $emailError.text('Please enter a valid email.');
-                valid = false;
-            }
-            if (password.length < 6) {
-                $passwordError.text('Password must be at least 6 characters.');
-                valid = false;
-            }
-            if (!valid) return;
-
-            // Проверка админов
-            const admins = JSON.parse(localStorage.getItem('acaAdmins') || '[]');
-            const adminUser = admins.find(admin => admin.email === email && admin.password === password);
-            
-            if (adminUser) {
-                localStorage.setItem('currentUserRole', 'admin');
-                localStorage.setItem('currentUserName', adminUser.name);
-                showWelcome(adminUser);
-                return;
-            }
-
-            const storedUsers = JSON.parse(localStorage.getItem('acaUsers')) || [];
-            const user = storedUsers.find(u => u.email === email && u.password === password);
-            
-            if (user) {
-                localStorage.setItem('currentUserRole', 'user');
-                localStorage.setItem('currentUserName', user.name);
-                showWelcome(user);
-            } else {
-                alert("Invalid email or password.");
-            }
-        });
-
-        $('#registerFormElement').on('submit', function(e) {
-            e.preventDefault();
-            const name = $('#registerName').val().trim();
-            const email = $('#registerEmail').val().trim();
-            const password = $('#registerPassword').val();
-            const confirm = $('#registerConfirmPassword').val();
-
-            const $nameErr = $('#registerNameError');
-            const $emailErr = $('#registerEmailError');
-            const $passErr = $('#registerPasswordError');
-            const $confErr = $('#registerConfirmError');
-            
-            $nameErr.text('');
-            $emailErr.text('');
-            $passErr.text('');
-            $confErr.text('');
-            
-            let valid = true;
-
-            if (name === '') { 
-                $nameErr.text('Enter your name'); 
-                valid = false; 
-            }
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { 
-                $emailErr.text('Invalid email'); 
-                valid = false; 
-            }
-            if (password.length < 6) { 
-                $passErr.text('Min 6 characters'); 
-                valid = false; 
-            }
-            if (password !== confirm) { 
-                $confErr.text('Passwords do not match'); 
-                valid = false; 
-            }
-
-            if (!valid) return;
-
-            const storedUsers = JSON.parse(localStorage.getItem('acaUsers')) || [];
-            const storedAdmins = JSON.parse(localStorage.getItem('acaAdmins')) || [];
-            
-            if (storedUsers.find(u => u.email === email) || storedAdmins.find(a => a.email === email)) {
-                $emailErr.text('Email already registered.');
-                return;
-            }
-
-            const isAdmin = confirm('Register as administrator? (Cancel for regular user)');
-            
-            if (isAdmin) {
-                const adminPassword = prompt('Enter admin registration code:');
-                if (adminPassword === '27102025') { 
-                    storedAdmins.push({ name, email, password });
-                    localStorage.setItem('acaAdmins', JSON.stringify(storedAdmins));
-                    $('#successMessage').html('<i class="fas fa-check-circle"></i> Administrator account created successfully!');
-                } else {
-                    alert('Invalid admin code. Registering as regular user.');
-                    storedUsers.push({ name, email, password });
-                    localStorage.setItem('acaUsers', JSON.stringify(storedUsers));
-                    $('#successMessage').html('<i class="fas fa-check-circle"></i> Registration successful! You can now log in.');
-                }
-            } else {
-                storedUsers.push({ name, email, password });
-                localStorage.setItem('acaUsers', JSON.stringify(storedUsers));
-                $('#successMessage').html('<i class="fas fa-check-circle"></i> Registration successful! You can now log in.');
-            }
-
-            $('#successMessage').show();
-            $(this).trigger('reset');
-            setTimeout(() => $('[data-tab="login"]').trigger('click'), 2000);
-        });
-
-        function showWelcome(user) {
-            const $welcome = $('#welcome');
-            const role = localStorage.getItem('currentUserRole');
-            const roleText = role === 'admin' ? 'Administrator' : role === 'user' ? 'User' : 'Guest';
-            $welcome.text(`Welcome back, ${user.name}! (${roleText})`);
-            $welcome.addClass('show');
-            
-            const $loginSound = $('#loginSound');
-            if ($loginSound.length) {
-                $loginSound[0].play().catch(e => console.log('Audio play failed:', e));
-            }
-            
-            const $form = $('#loginFormSection');
-            $form.css('transform', 'scale(1.05)');
-            setTimeout(() => $form.css('transform', 'scale(1)'), 500);
-            setTimeout(() => window.location.href = "home.html", 2000);
-        }
-
-        function initializeDefaultUsers() {
-            if (!localStorage.getItem('acaUsers')) {
-                const defaultUsers = [
-                    { name: "Eren Yeager", email: "eren@aot.com", password: "password123" },
-                    { name: "Mikasa Ackerman", email: "mikasa@aot.com", password: "password123" },
-                    { name: "Armin Arlert", email: "armin@aot.com", password: "password123" }
-                ];
-                localStorage.setItem('acaUsers', JSON.stringify(defaultUsers));
-            }
-
-            if (!localStorage.getItem('acaAdmins')) {
-                const defaultAdmins = [
-                    { name: "Levi Ackerman", email: "radmirpdf@gmail.com", password: "27102025" }
-                ];
-                localStorage.setItem('acaAdmins', JSON.stringify(defaultAdmins));
-            }
-        }
-    }
-
-    function initHomePage() {
-        const role = localStorage.getItem('currentUserRole') || 'guest';
-        const userName = localStorage.getItem('currentUserName') || 'Guest';
+        const email = $('#loginEmail').val().trim();
+        const password = $('#loginPassword').val();
         
-        if (role === 'admin') {
-            createAdminPanel(userName);
+        // Простая валидация
+        if (!email || !password) {
+            alert('Please fill in all fields');
+            return;
         }
 
-        showUserInfo(role, userName);
-    }
-
-    function createAdminPanel(userName) {
-        const adminPanel = $('<div>', {
-            class: 'admin-panel',
-            html: `
-                <div class="admin-info">
-                    <strong>Admin: ${userName}</strong>
-                </div>
-                <button id="addSectionBtn" class="btn admin-add-btn">➕ Add Section</button>
-                <button id="logoutBtn" class="btn btn-outline-custom btn-sm">🚪 Logout</button>
-                <input type="file" id="imageUploader" accept="image/*" style="display:none">
-            `
-        });
-        $('body').append(adminPanel);
-
-        function createSection(data = { title: 'New Section', text: 'Your content...', img: '' }) {
-            const section = $('<section>', {
-                class: 'custom-section',
-                html: `
-                    <div class="container my-5">
-                        <h2 class="editable-title" contenteditable="true">${data.title}</h2>
-                        <p class="editable-text" contenteditable="true">${data.text}</p>
-                        ${data.img ? `<img src="${data.img}" class="editable-image" style="max-width:300px; display:block; margin:20px 0;">` : `<img class="editable-image" style="max-width:300px; display:none; margin:20px 0;">`}
-                        <div class="admin-section-controls">
-                            <button class="btn btn-outline-primary uploadImageBtn">📷 Upload</button>
-                            <button class="btn btn-success saveSectionBtn">💾 Save</button>
-                            <button class="btn btn-danger deleteSectionBtn">🗑 Delete</button>
-                        </div>
-                    </div>
-                `
-            });
-            $('body').append(section);
-
-            section.find('.uploadImageBtn').on('click', function() {
-                $('#imageUploader').trigger('click');
-            });
-
-            $('#imageUploader').on('change', function() {
-                const file = this.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const $img = section.find('.editable-image');
-                        $img.attr('src', e.target.result).show();
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            section.find('.saveSectionBtn').on('click', function() {
-                saveSections();
-                alert('Section saved!');
-            });
-
-            section.find('.deleteSectionBtn').on('click', function() {
-                if (confirm('Delete this section?')) {
-                    section.remove();
-                    saveSections();
-                }
-            });
-        }
-
-        $('#addSectionBtn').on('click', function() {
-            createSection();
-        });
-
-        $('#logoutBtn').on('click', logout);
-
-        function saveSections() {
-            const all = [];
-            $('.custom-section').each(function() {
-                const $sec = $(this);
-                const title = $sec.find('.editable-title').text();
-                const text = $sec.find('.editable-text').text();
-                const img = $sec.find('.editable-image').attr('src') || '';
-                all.push({ title, text, img });
-            });
-            localStorage.setItem('customSections', JSON.stringify(all));
-        }
-
-        const saved = JSON.parse(localStorage.getItem('customSections') || '[]');
-        saved.forEach(item => createSection(item));
-    }
-
-    function showUserInfo(role, userName) {
-        console.log(`Current user: ${userName} (${role})`);
-    }
-
-    function logout() {
-        localStorage.removeItem('currentUserRole');
-        localStorage.removeItem('currentUserName');
-        window.location.href = 'index.html';
-    }
-    $(document).ready(function() {
-        console.log('Document ready, initializing systems...');
+        // Проверка пользователей
+        const storedUsers = JSON.parse(localStorage.getItem('acaUsers')) || [];
+        const user = storedUsers.find(u => u.email === email && u.password === password);
         
-        const path = window.location.pathname;
-        console.log('Current path:', path);
-        
-        // Определяем на какой странице находимся
-        if (path.includes('index.html') || path.endsWith('/')) {
-            console.log('Initializing login page...');
-            initLoginSystem();
-        } else if (path.includes('home.html')) {
-            console.log('Initializing home page...');
-            initAdminSystem();
+        if (user) {
+            localStorage.setItem('currentUserRole', 'user');
+            localStorage.setItem('currentUserName', user.name);
+            showWelcome(user);
         } else {
-            console.log('Initializing admin system...');
-            initAdminSystem();
+            alert("Invalid email or password. Try: user@example.com / password123");
         }
     });
-    
-    // Глобальные функции
-    window.toggleAdminMode = toggleAdminMode;
-    window.adminPanel = null;
 
+    // Форма регистрации
+    $('#registerFormElement').on('submit', function(e) {
+        e.preventDefault();
+        console.log('Register form submitted');
+        
+        const name = $('#registerName').val().trim();
+        const email = $('#registerEmail').val().trim();
+        const password = $('#registerPassword').val();
+        const confirmPassword = $('#registerConfirmPassword').val();
+
+        // Простая валидация
+        if (!name || !email || !password) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match');
+            return;
+        }
+
+        if (password.length < 6) {
+            alert('Password must be at least 6 characters');
+            return;
+        }
+
+        const storedUsers = JSON.parse(localStorage.getItem('acaUsers')) || [];
+        
+        if (storedUsers.find(u => u.email === email)) {
+            alert('Email already registered.');
+            return;
+        }
+
+        // Регистрация обычного пользователя
+        storedUsers.push({ name, email, password });
+        localStorage.setItem('acaUsers', JSON.stringify(storedUsers));
+        
+        $('#successMessage').html('<i class="fas fa-check-circle"></i> Registration successful! You can now log in.');
+        $('#successMessage').show();
+        $(this).trigger('reset');
+        
+        setTimeout(() => {
+            $('[data-tab="login"]').trigger('click');
+        }, 2000);
+    });
+
+    function showWelcome(user) {
+        const $welcome = $('#welcome');
+        const role = localStorage.getItem('currentUserRole');
+        const roleText = role === 'admin' ? 'Administrator' : role === 'user' ? 'User' : 'Guest';
+        $welcome.text(`Welcome back, ${user.name}! (${roleText})`);
+        $welcome.addClass('show');
+        
+        // Немедленный переход
+        setTimeout(() => {
+            console.log('Redirecting to home.html...');
+            window.location.href = "home.html";
+        }, 1000);
+    }
+
+    function initializeDefaultUsers() {
+        if (!localStorage.getItem('acaUsers')) {
+            const defaultUsers = [
+                { name: "John Doe", email: "user@example.com", password: "password123" },
+                { name: "Jane Smith", email: "jane@example.com", password: "password123" }
+            ];
+            localStorage.setItem('acaUsers', JSON.stringify(defaultUsers));
+            console.log('Default users initialized');
+        }
+    }
+}
+
+// ОСНОВНАЯ ИНИЦИАЛИЗАЦИЯ
+$(document).ready(function() {
+    console.log('Document ready, initializing systems...');
+    
+    const path = window.location.pathname;
+    console.log('Current path:', path);
+    
+    // Определяем на какой странице находимся
+    if (path.includes('index.html') || path.endsWith('/') || path === '/') {
+        console.log('Initializing login page...');
+        initLoginSystem();
+    } else if (path.includes('home.html')) {
+        console.log('Initializing home page...');
+        initAdminSystem();
+    } else {
+        console.log('Initializing admin system...');
+        initAdminSystem();
+    }
 });
+
+// Глобальные функции
+window.toggleAdminMode = toggleAdminMode;
+window.adminPanel = null;
