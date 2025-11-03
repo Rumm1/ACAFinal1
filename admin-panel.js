@@ -1,10 +1,8 @@
-// admin-panel.js с jQuery
 class AdminPanel {
     constructor() {
         this.sections = JSON.parse(localStorage.getItem('adminSections')) || [];
         this.currentAdmin = 'Levi Ackerman';
         this.isAdminMode = localStorage.getItem('adminSession') === 'true';
-        this.init();
     }
 
     init() {
@@ -638,7 +636,6 @@ class AdminPanel {
     }
 }
 
-// Глобальные функции с jQuery
 function toggleAdminMode() {
     if (!window.adminPanel) {
         window.adminPanel = new AdminPanel();
@@ -652,21 +649,19 @@ function toggleAdminMode() {
     }
 }
 
-// Инициализация с jQuery
 function initAdminSystem() {
     window.adminPanel = new AdminPanel();
     
-    // Setup admin access button
     const $adminAccessBtn = $('#adminAccessBtn');
     if ($adminAccessBtn.length) {
         $adminAccessBtn.on('click', toggleAdminMode);
     }
 
-    // Показываем админ-интерфейс если уже в режиме админа
     if (localStorage.getItem('adminSession') === 'true') {
         window.adminPanel.renderAdminInterface();
     }
 }
+
 
 window.toggleAdminMode = toggleAdminMode;
 window.adminPanel = null;
@@ -682,7 +677,165 @@ $(document).ready(function() {
     if (path.includes("home.html")) initHomePage();
     
     initAdminSystem();
+    function initLoginSystem() {
+        console.log('Initializing login system...');
+        
+        // Инициализация пользователей по умолчанию
+        initializeDefaultUsers();
     
+        // Обработчики вкладок
+        $('.tab-btn').on('click', function() {
+            $('.tab-btn').removeClass('active');
+            $('.form-content').removeClass('active');
+            $(this).addClass('active');
+            $('#' + $(this).data('tab') + 'Form').addClass('active');
+            $('#successMessage').hide();
+            $('#welcome').removeClass('show');
+        });
+    
+        // Гостевой вход
+        $('#guestBtn').on('click', function() {
+            console.log('Guest button clicked');
+            localStorage.setItem('currentUserRole', 'guest');
+            localStorage.setItem('currentUserName', 'Guest');
+            window.location.href = 'home.html';
+        });
+    
+        // Форма логина
+        $('#loginFormElement').on('submit', function(e) {
+            e.preventDefault();
+            console.log('Login form submitted');
+            
+            const email = $('#loginEmail').val().trim();
+            const password = $('#loginPassword').val();
+            const $emailError = $('#loginEmailError');
+            const $passwordError = $('#loginPasswordError');
+            
+            $emailError.text('');
+            $passwordError.text('');
+            
+            let valid = true;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!emailPattern.test(email)) {
+                $emailError.text('Please enter a valid email.');
+                valid = false;
+            }
+            if (password.length < 6) {
+                $passwordError.text('Password must be at least 6 characters.');
+                valid = false;
+            }
+            if (!valid) return;
+    
+            // Проверка пользователей
+            const storedUsers = JSON.parse(localStorage.getItem('acaUsers')) || [];
+            const user = storedUsers.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                localStorage.setItem('currentUserRole', 'user');
+                localStorage.setItem('currentUserName', user.name);
+                showWelcome(user);
+            } else {
+                alert("Invalid email or password.");
+            }
+        });
+    
+        // Форма регистрации
+        $('#registerFormElement').on('submit', function(e) {
+            e.preventDefault();
+            console.log('Register form submitted');
+            
+            const name = $('#registerName').val().trim();
+            const email = $('#registerEmail').val().trim();
+            const password = $('#registerPassword').val();
+            const confirmPassword = $('#registerConfirmPassword').val();
+    
+            const $nameErr = $('#registerNameError');
+            const $emailErr = $('#registerEmailError');
+            const $passErr = $('#registerPasswordError');
+            const $confErr = $('#registerConfirmError');
+            
+            $nameErr.text('');
+            $emailErr.text('');
+            $passErr.text('');
+            $confErr.text('');
+            
+            let valid = true;
+    
+            if (name === '') { 
+                $nameErr.text('Enter your name'); 
+                valid = false; 
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { 
+                $emailErr.text('Invalid email'); 
+                valid = false; 
+            }
+            if (password.length < 6) { 
+                $passErr.text('Min 6 characters'); 
+                valid = false; 
+            }
+            if (password !== confirmPassword) { 
+                $confErr.text('Passwords do not match'); 
+                valid = false; 
+            }
+    
+            if (!valid) return;
+    
+            const storedUsers = JSON.parse(localStorage.getItem('acaUsers')) || [];
+            
+            if (storedUsers.find(u => u.email === email)) {
+                $emailErr.text('Email already registered.');
+                return;
+            }
+    
+            // Регистрация обычного пользователя
+            storedUsers.push({ name, email, password });
+            localStorage.setItem('acaUsers', JSON.stringify(storedUsers));
+            
+            $('#successMessage').html('<i class="fas fa-check-circle"></i> Registration successful! You can now log in.');
+            $('#successMessage').show();
+            $(this).trigger('reset');
+            
+            setTimeout(() => {
+                $('[data-tab="login"]').trigger('click');
+            }, 2000);
+        });
+    
+        function showWelcome(user) {
+            const $welcome = $('#welcome');
+            const role = localStorage.getItem('currentUserRole');
+            const roleText = role === 'admin' ? 'Administrator' : role === 'user' ? 'User' : 'Guest';
+            $welcome.text(`Welcome back, ${user.name}! (${roleText})`);
+            $welcome.addClass('show');
+            
+            // Воспроизведение звука
+            const $loginSound = $('#loginSound');
+            if ($loginSound.length) {
+                $loginSound[0].play().catch(e => console.log('Audio play failed:', e));
+            }
+            
+            // Анимация и переход
+            const $form = $('#loginFormSection');
+            $form.css('transform', 'scale(1.05)');
+            setTimeout(() => $form.css('transform', 'scale(1)'), 500);
+            
+            setTimeout(() => {
+                console.log('Redirecting to home.html...');
+                window.location.href = "home.html";
+            }, 2000);
+        }
+    
+        function initializeDefaultUsers() {
+            if (!localStorage.getItem('acaUsers')) {
+                const defaultUsers = [
+                    { name: "John Doe", email: "user@example.com", password: "password123" },
+                    { name: "Jane Smith", email: "jane@example.com", password: "password123" }
+                ];
+                localStorage.setItem('acaUsers', JSON.stringify(defaultUsers));
+                console.log('Default users initialized');
+            }
+        }
+    }
     function initLoginPage() {
         initializeDefaultUsers();
 
@@ -960,4 +1113,27 @@ $(document).ready(function() {
         localStorage.removeItem('currentUserName');
         window.location.href = 'index.html';
     }
+    $(document).ready(function() {
+        console.log('Document ready, initializing systems...');
+        
+        const path = window.location.pathname;
+        console.log('Current path:', path);
+        
+        // Определяем на какой странице находимся
+        if (path.includes('index.html') || path.endsWith('/')) {
+            console.log('Initializing login page...');
+            initLoginSystem();
+        } else if (path.includes('home.html')) {
+            console.log('Initializing home page...');
+            initAdminSystem();
+        } else {
+            console.log('Initializing admin system...');
+            initAdminSystem();
+        }
+    });
+    
+    // Глобальные функции
+    window.toggleAdminMode = toggleAdminMode;
+    window.adminPanel = null;
+
 });
