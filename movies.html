@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>American Movies - ACA</title>
+    <link rel="stylesheet" href="aca-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .aca-logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #3C3B6E 0%, #2A2A5E 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 15px;
+            border: 2px solid #B22234;
+            object-fit: cover;
+        }
+        
+        .aca-university-logo {
+            height: 50px;
+            margin-left: 20px;
+            border-radius: 12px;
+            border: 2px solid #3C3B6E;
+            object-fit: cover;
+        }
+
+        .aca-movies-hero {
+            background: linear-gradient(rgba(60, 59, 110, 0.8), rgba(178, 34, 52, 0.8)), url('Hollywood-sign.jpg') center/cover no-repeat;
+            height: 450px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .aca-movies-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        
+        .aca-movies-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .aca-movies-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .aca-movies-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        .aca-movies-intro {
+            padding: 70px 0;
+            background-color: #fff;
+        }
+        
+        .aca-movies-intro-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        
+        .aca-movies-intro h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #3C3B6E;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .aca-movies-intro p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 25px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .aca-movies-timeline {
+            padding: 70px 0;
+            background-color: #f5f7fa;
+        }
+        
+        .aca-timeline-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .aca-timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3C3B6E, #B22234);
+            border-radius: 2px;
+        }
+        
+        .aca-timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 30px;
+            position: relative;
+            margin-bottom: 60px;
+            width: 50%;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .aca-timeline-item:nth-child(even) {
+            align-self: flex-end;
+            justify-content: flex-start;
+            padding-left: 30px;
+            padding-right: 0;
+            left: 50%;
+        }
+        
+        .aca-timeline-content {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            position: relative;
+        }
+        
+        .aca-timeline-content::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: #B22234;
+            border-radius: 50%;
+            border: 4px solid #3C3B6E;
+        }
+        
+        .aca-timeline-item:nth-child(even) .aca-timeline-content::after {
+            left: -10px;
+            right: auto;
+        }
+        
+        .aca-timeline-year {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #B22234;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .aca-timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #3C3B6E;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .aca-timeline-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Movie Genres Section */
+        .aca-movies-genres {
+            padding: 70px 0;
+            background-color: #fff;
+        }
+        
+        .aca-genres-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .aca-genre-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .aca-genre-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .aca-genre-header {
+            padding: 25px;
+            color: white;
+            text-align: center;
+        }
+        
+        .aca-genre-action .aca-genre-header { background: linear-gradient(135deg, #1a2a6c, #3C3B6E); }
+        .aca-genre-comedy .aca-genre-header { background: linear-gradient(135deg, #3C3B6E, #4a6fa5); }
+        .aca-genre-drama .aca-genre-header { background: linear-gradient(135deg, #B22234, #d9534f); }
+        .aca-genre-scifi .aca-genre-header { background: linear-gradient(135deg, #2c3e50, #34495e); }
+        .aca-genre-horror .aca-genre-header { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+        .aca-genre-animation .aca-genre-header { background: linear-gradient(135deg, #e74c3c, #e67e22); }
+        
+        .aca-genre-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .aca-genre-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .aca-genre-origin {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .aca-genre-content {
+            padding: 25px;
+        }
+        
+        .aca-genre-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .aca-genre-movies {
+            margin-top: 20px;
+        }
+        
+        .aca-movies-title {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #3C3B6E;
+            font-weight: 600;
+        }
+        
+        .aca-movies-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .aca-movie-tag {
+            background: #f8f9fa;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #3C3B6E;
+            transition: all 0.3s ease;
+        }
+        
+        .aca-movie-tag:hover {
+            background: #3C3B6E;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .aca-directors-section {
+            padding: 70px 0;
+            background-color: #f5f7fa;
+        }
+        
+        .aca-directors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .aca-director-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .aca-director-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .aca-director-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .aca-director-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .aca-director-card:hover .aca-director-image img {
+            transform: scale(1.05);
+        }
+        
+        .aca-director-info {
+            padding: 25px;
+        }
+        
+        .aca-director-name {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #3C3B6E;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .aca-director-genre {
+            color: #B22234;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .aca-director-genre i {
+            margin-right: 8px;
+        }
+        
+        .aca-director-bio {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .aca-director-facts {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .aca-director-facts h4 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #B22234;
+        }
+        
+        .aca-director-facts ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .aca-director-facts li {
+            padding: 5px 0;
+            border-bottom: 1px solid #e9ecef;
+            color: #666;
+        }
+        
+        .aca-director-facts li:last-child {
+            border-bottom: none;
+        }
+        
+        .aca-industry-section {
+            padding: 70px 0;
+            background-color: #fff;
+        }
+        
+        .aca-industry-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+        
+        .aca-industry-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .aca-stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .aca-stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .aca-stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #B22234;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .aca-stat-label {
+            color: #3C3B6E;
+            font-weight: 600;
+        }
+        
+        .aca-impact-section {
+            padding: 70px 0;
+            background-color: #f5f7fa;
+        }
+        
+        .aca-impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .aca-impact-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .aca-impact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .aca-impact-icon {
+            font-size: 2.5rem;
+            color: #B22234;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .aca-impact-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #3C3B6E;
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+        }
+        
+        .aca-impact-description {
+            color: #666;
+            line-height: 1.6;
+            text-align: center;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .aca-movies-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .aca-movies-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .aca-timeline-container::before {
+                left: 30px;
+            }
+            
+            .aca-timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 0;
+            }
+            
+            .aca-timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .aca-timeline-content {
+                width: 100%;
+            }
+            
+            .aca-timeline-content::after {
+                left: -40px;
+                right: auto;
+            }
+            
+            .aca-genres-grid,
+            .aca-directors-grid,
+            .aca-impact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .aca-industry-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .aca-industry-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .aca-movies-list {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="aca-header">
+        <div class="aca-container">
+            <div class="aca-header-content">
+                <div class="aca-logo" style="display: flex; align-items: center;">
+                    <img class="aca-logo-img" src="logoACA.webp" alt="ACA Logo">
+                    <div>
+                        <h1 style="margin: 0; font-size: 24px;">American Cultural</h1>
+                        <p style="margin: 0; font-size: 14px; opacity: 0.8;">Association</p>
+                    </div>
+                </div>
+                <nav class="aca-nav">
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="cuisine.html">Cuisine</a></li>
+                        <li><a href="music.html">Music</a></li>
+                        <li><a href="movies.html" class="aca-active">Movies</a></li>
+                        <li><a href="sports.html">Sports</a></li>
+                        <li><a href="landmarks.html">Landmarks</a></li>
+                        <li><a href="holidays.html">Holidays</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <img src="logoAITU.jpg" alt="University Logo" class="aca-university-logo">
+            </div>
+        </div>
+    </header>
+
+    <section class="aca-movies-hero">
+        <div class="aca-movies-hero-content">
+            <h1>American Cinema Legacy</h1>
+            <p>Explore the rich history of Hollywood and independent films that shaped global cinema</p>
+        </div>
+    </section>
+
+    <section class="aca-movies-intro">
+        <div class="aca-container">
+            <div class="aca-movies-intro-content">
+                <h2>The Magic of American Movies</h2>
+                <p>American cinema has been a dominant force in the global film industry since the early 20th century. From the silent era to the digital age, Hollywood has produced countless iconic films that have captivated audiences worldwide and influenced filmmaking across the globe.</p>
+                <p>The American film industry not only entertains but also reflects and shapes cultural values, social issues, and technological innovations, making it a powerful cultural export and artistic medium.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="aca-movies-timeline">
+        <div class="aca-container">
+            <h2 class="aca-section-title">Evolution of American Cinema</h2>
+            <div class="aca-timeline-container">
+                <div class="aca-timeline-item">
+                    <div class="aca-timeline-content">
+                        <div class="aca-timeline-year">1890s-1920s</div>
+                        <h3 class="aca-timeline-title">Silent Era & Early Innovations</h3>
+                        <p class="aca-timeline-description">The birth of American cinema with pioneers like Thomas Edison and the Lumière brothers. Hollywood emerges as the film capital. Silent film stars like Charlie Chaplin and Buster Keaton become international icons.</p>
+                    </div>
+                </div>
+                
+                <div class="aca-timeline-item">
+                    <div class="aca-timeline-content">
+                        <div class="aca-timeline-year">1930s-1940s</div>
+                        <h3 class="aca-timeline-title">Golden Age of Hollywood</h3>
+                        <p class="aca-timeline-description">The studio system dominates with MGM, Paramount, Warner Bros., and others. Introduction of "talkies" revolutionizes cinema. Iconic films like "Gone with the Wind" and "Citizen Kane" set new standards.</p>
+                    </div>
+                </div>
+                
+                <div class="aca-timeline-item">
+                    <div class="aca-timeline-content">
+                        <div class="aca-timeline-year">1950s-1960s</div>
+                        <h3 class="aca-timeline-title">Television Challenge & New Waves</h3>
+                        <p class="aca-timeline-description">Cinema responds to television with widescreen formats and epic productions. Method acting gains prominence. The MPAA rating system is introduced. Independent cinema begins to emerge.</p>
+                    </div>
+                </div>
+                
+                <div class="aca-timeline-item">
+                    <div class="aca-timeline-content">
+                        <div class="aca-timeline-year">1970s-1980s</div>
+                        <h3 class="aca-timeline-title">New Hollywood & Blockbuster Era</h3>
+                        <p class="aca-timeline-description">Auteur directors like Scorsese, Coppola, and Spielberg redefine American cinema. The birth of the summer blockbuster with "Jaws" and "Star Wars". Special effects technology advances rapidly.</p>
+                    </div>
+                </div>
+                
+                <div class="aca-timeline-item">
+                    <div class="aca-timeline-content">
+                        <div class="aca-timeline-year">1990s-2000s</div>
+                        <h3 class="aca-timeline-title">Independent Renaissance & Digital Revolution</h3>
+                        <p class="aca-timeline-description">Miramax and Sundance Festival boost independent films. CGI technology transforms visual storytelling. Digital filming and editing become standard. Franchise films dominate box offices.</p>
+                    </div>
+                </div>
+                
+                <div class="aca-timeline-item">
+                    <div class="aca-timeline-content">
+                        <div class="aca-timeline-year">2010s-Present</div>
+                        <h3 class="aca-timeline-title">Streaming Era & Diversity Push</h3>
+                        <p class="aca-timeline-description">Netflix and streaming services disrupt traditional distribution. Increased focus on diversity and representation. Superhero films dominate commercial cinema. Virtual and augmented reality expand storytelling possibilities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="aca-movies-genres">
+        <div class="aca-container">
+            <h2 class="aca-section-title">American Film Genres</h2>
+            <div class="aca-genres-grid">
+                <div class="aca-genre-card aca-genre-action">
+                    <div class="aca-genre-header">
+                        <div class="aca-genre-icon"><i class="fas fa-explosion"></i></div>
+                        <h3 class="aca-genre-title">Action</h3>
+                        <p class="aca-genre-origin">1920s-Present</p>
+                    </div>
+                    <div class="aca-genre-content">
+                        <p class="aca-genre-description">Characterized by high-energy sequences, physical stunts, chases, battles, and spectacular effects. American action films often feature heroic protagonists facing overwhelming odds.</p>
+                        <div class="aca-genre-movies">
+                            <h4 class="aca-movies-title">Iconic Films:</h4>
+                            <div class="aca-movies-list">
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0095016/" target="_blank">Die Hard</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0103064/" target="_blank">Terminator 2</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0372784/" target="_blank">Batman Begins</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0499549/" target="_blank">Avatar</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt4154756/" target="_blank">Avengers: Infinity War</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aca-genre-card aca-genre-comedy">
+                    <div class="aca-genre-header">
+                        <div class="aca-genre-icon"><i class="fas fa-laugh"></i></div>
+                        <h3 class="aca-genre-title">Comedy</h3>
+                        <p class="aca-genre-origin">1910s-Present</p>
+                    </div>
+                    <div class="aca-genre-content">
+                        <p class="aca-genre-description">Designed to entertain and amuse through humor, ranging from slapstick and satire to romantic comedy and dark comedy. Often reflects social norms and cultural attitudes.</p>
+                        <div class="aca-genre-movies">
+                            <h4 class="aca-movies-title">Iconic Films:</h4>
+                            <div class="aca-movies-list">
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0071230/" target="_blank">Young Frankenstein</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0080455/" target="_blank">The Blues Brothers</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0114436/" target="_blank">Friday</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0261392/" target="_blank">Bringing Down the House</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0488120/" target="_blank">Superbad</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aca-genre-card aca-genre-drama">
+                    <div class="aca-genre-header">
+                        <div class="aca-genre-icon"><i class="fas fa-theater-masks"></i></div>
+                        <h3 class="aca-genre-title">Drama</h3>
+                        <p class="aca-genre-origin">1910s-Present</p>
+                    </div>
+                    <div class="aca-genre-content">
+                        <p class="aca-genre-description">Focused on realistic characters, settings, and stories that explore serious themes and human experiences. Often features emotional depth and character development.</p>
+                        <div class="aca-genre-movies">
+                            <h4 class="aca-movies-title">Iconic Films:</h4>
+                            <div class="aca-movies-list">
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0031381/" target="_blank">Gone with the Wind</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0034583/" target="_blank">Casablanca</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0068646/" target="_blank">The Godfather</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0108052/" target="_blank">Schindler's List</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt1375666/" target="_blank">Inception</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aca-genre-card aca-genre-scifi">
+                    <div class="aca-genre-header">
+                        <div class="aca-genre-icon"><i class="fas fa-rocket"></i></div>
+                        <h3 class="aca-genre-title">Science Fiction</h3>
+                        <p class="aca-genre-origin">1950s-Present</p>
+                    </div>
+                    <div class="aca-genre-content">
+                        <p class="aca-genre-description">Explores imaginative concepts such as futuristic settings, advanced technology, space exploration, time travel, and extraterrestrial life. Often addresses philosophical and social questions.</p>
+                        <div class="aca-genre-movies">
+                            <h4 class="aca-movies-title">Iconic Films:</h4>
+                            <div class="aca-movies-list">
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0062622/" target="_blank">2001: A Space Odyssey</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0076759/" target="_blank">Star Wars</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0083658/" target="_blank">Blade Runner</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0133093/" target="_blank">The Matrix</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0816692/" target="_blank">Interstellar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aca-genre-card aca-genre-horror">
+                    <div class="aca-genre-header">
+                        <div class="aca-genre-icon"><i class="fas fa-ghost"></i></div>
+                        <h3 class="aca-genre-title">Horror</h3>
+                        <p class="aca-genre-origin">1920s-Present</p>
+                    </div>
+                    <div class="aca-genre-content">
+                        <p class="aca-genre-description">Designed to frighten and unsettle audiences through suspense, shock, and supernatural elements. Often explores societal fears and psychological terror.</p>
+                        <div class="aca-genre-movies">
+                            <h4 class="aca-movies-title">Iconic Films:</h4>
+                            <div class="aca-movies-list">
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0078748/" target="_blank">Alien</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0077651/" target="_blank">Halloween</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0081505/" target="_blank">The Shining</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0120737/" target="_blank">The Ring</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0387564/" target="_blank">Saw</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aca-genre-card aca-genre-animation">
+                    <div class="aca-genre-header">
+                        <div class="aca-genre-icon"><i class="fas fa-film"></i></div>
+                        <h3 class="aca-genre-title">Animation</h3>
+                        <p class="aca-genre-origin">1920s-Present</p>
+                    </div>
+                    <div class="aca-genre-content">
+                        <p class="aca-genre-description">Uses sequential images to create the illusion of movement. American animation ranges from traditional hand-drawn to computer-generated imagery, often targeting both children and adults.</p>
+                        <div class="aca-genre-movies">
+                            <h4 class="aca-movies-title">Iconic Films:</h4>
+                            <div class="aca-movies-list">
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0096895/" target="_blank">Batman</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0120363/" target="_blank">Toy Story</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0266543/" target="_blank">Finding Nemo</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt0382932/" target="_blank">Ratatouille</a>
+                                <a class="aca-movie-tag" href="https://www.imdb.com/title/tt2380307/" target="_blank">Coco</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="aca-directors-section">
+        <div class="aca-container">
+            <h2 class="aca-section-title">Influential American Directors</h2>
+            <div class="aca-directors-grid">
+                <div class="aca-director-card">
+                    <div class="aca-director-image">
+                        <img src="steaven.jfif" alt="Steven Spielberg">
+                    </div>
+                    <div class="aca-director-info">
+                        <h3 class="aca-director-name">Steven Spielberg</h3>
+                        <p class="aca-director-genre"><i class="fas fa-film"></i> Adventure, Drama, Sci-Fi</p>
+                        <p class="aca-director-bio">One of the most influential filmmakers in cinematic history. Known for creating some of Hollywood's most iconic films that combine commercial success with artistic merit.</p>
+                        <div class="aca-director-facts">
+                            <h4>Key Films:</h4>
+                            <ul>
+                                <li>Jaws (1975) - First summer blockbuster</li>
+                                <li>E.T. the Extra-Terrestrial (1982) - Highest grossing film of its time</li>
+                                <li>Schindler's List (1993) - 7 Academy Awards</li>
+                                <li>Saving Private Ryan (1998) - 5 Academy Awards</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aca-director-card">
+                    <div class="aca-director-image">
+                        <img src="Mark.webp" alt="Martin Scorsese">
+                    </div>
+                    <div class="aca-director-info">
+                        <h3 class="aca-director-name">Martin Scorsese</h3>
+                        <p class="aca-director-genre"><i class="fas fa-film"></i> Crime, Drama, Biography</p>
+                        <p class="aca-director-bio">A central figure in the New Hollywood era, known for his gritty, often violent films that explore themes of Italian-American identity, crime, and redemption.</p>
+                        <div class="aca-director-facts">
+                            <h4>Key Films:</h4>
+                            <ul>
+                                <li>Taxi Driver (1976) - Palme d'Or nominee</li>
+                                <li>Raging Bull (1980) - Considered one of greatest films ever</li>
+                                <li>Goodfellas (1990) - Often cited as best gangster film</li>
+                                <li>The Departed (2006) - Won Best Picture Oscar</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aca-director-card">
+                    <div class="aca-director-image">
+                        <img src="UzMXSpNotRM.jpg" alt="Stanley Kubrick">
+                    </div>
+                    <div class="aca-director-info">
+                        <h3 class="aca-director-name">Stanley Kubrick</h3>
+                        <p class="aca-director-genre"><i class="fas fa-film"></i> Various genres, often dystopian</p>
+                        <p class="aca-director-bio">Renowned for his meticulous perfectionism, innovative cinematography, and exploration of dark, often dystopian themes across diverse genres.</p>
+                        <div class="aca-director-facts">
+                            <h4>Key Films:</h4>
+                            <ul>
+                                <li>2001: A Space Odyssey (1968) - Sci-fi masterpiece</li>
+                                <li>A Clockwork Orange (1971) - Controversial dystopia</li>
+                                <li>The Shining (1980) - Iconic horror film</li>
+                                <li>Full Metal Jacket (1987) - Vietnam War critique</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="aca-industry-section">
+        <div class="aca-container">
+            <h2 class="aca-section-title">Hollywood Industry Today</h2>
+            <div class="aca-industry-content">
+                <p>The American film industry, centered in Hollywood, California, remains the largest and most influential in the world. It produces hundreds of films annually with massive global distribution and significant cultural impact.</p>
+                
+                <div class="aca-industry-stats">
+                    <div class="aca-stat-card">
+                        <div class="aca-stat-number">$42+ Billion</div>
+                        <div class="aca-stat-label">Annual Global Box Office</div>
+                    </div>
+                    <div class="aca-stat-card">
+                        <div class="aca-stat-number">700+</div>
+                        <div class="aca-stat-label">Feature Films Produced Yearly</div>
+                    </div>
+                    <div class="aca-stat-card">
+                        <div class="aca-stat-number">60%+</div>
+                        <div class="aca-stat-label">Global Market Share</div>
+                    </div>
+                    <div class="aca-stat-card">
+                        <div class="aca-stat-number">2.5 Million</div>
+                        <div class="aca-stat-label">Jobs Supported</div>
+                    </div>
+                </div>
+                
+                <p>Major studios like Disney, Warner Bros., Universal, and Paramount continue to dominate global cinema, while streaming services like Netflix, Amazon, and Apple are reshaping film distribution and consumption patterns.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="aca-impact-section">
+        <div class="aca-container">
+            <h2 class="aca-section-title">Global Cultural Impact</h2>
+            <div class="aca-impact-grid">
+                <div class="aca-impact-card">
+                    <div class="aca-impact-icon"><i class="fas fa-globe-americas"></i></div>
+                    <h3 class="aca-impact-title">Cultural Export</h3>
+                    <p class="aca-impact-description">American films are distributed worldwide, influencing fashion, language, values, and lifestyles across cultures. They often serve as many people's primary exposure to American society.</p>
+                </div>
+                
+                <div class="aca-impact-card">
+                    <div class="aca-impact-icon"><i class="fas fa-language"></i></div>
+                    <h3 class="aca-impact-title">Language Dissemination</h3>
+                    <p class="aca-impact-description">Hollywood has played a significant role in making English a global lingua franca. American idioms and expressions spread internationally through popular films.</p>
+                </div>
+                
+                <div class="aca-impact-card">
+                    <div class="aca-impact-icon"><i class="fas fa-video"></i></div>
+                    <h3 class="aca-impact-title">Film Techniques</h3>
+                    <p class="aca-impact-description">American cinematic techniques, storytelling methods, and production values have become the international standard, influencing filmmakers worldwide.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="aca-footer">
+        <div class="aca-container">
+            <div class="aca-footer-content">
+                <div class="aca-footer-section">
+                    <h3>American Cultural Association</h3>
+                    <p>Exploring the rich heritage and traditions of the United States. Our mission is to promote understanding and appreciation of American culture worldwide.</p>
+                </div>
+                
+                <div class="aca-footer-section">
+                    <h3>Team Members</h3>
+                    <div class="aca-team-members">
+                        <a href="contact.html#ilyas" class="aca-team-member">Iliyas</a>
+                        <a href="contact.html#yerkebulan" class="aca-team-member">Yerkebulan</a>
+                        <a href="contact.html#radmir" class="aca-team-member">Radmir</a>
+                        <a href="contact.html#ramazan" class="aca-team-member">Ramazan</a>
+                    </div>
+                </div>
+                
+                <div class="aca-footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="aca-footer-links">
+                        <li><a href="home.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="cuisine.html"><i class="fas fa-chevron-right"></i> Cuisine</a></li>
+                        <li><a href="music.html"><i class="fas fa-chevron-right"></i> Music</a></li>
+                        <li><a href="movies.html"><i class="fas fa-chevron-right"></i> Movies</a></li>
+                        <li><a href="sports.html"><i class="fas fa-chevron-right"></i> Sports</a></li>
+                        <li><a href="landmarks.html"><i class="fas fa-chevron-right"></i> Landmarks</a></li>
+                        <li><a href="holidays.html"><i class="fas fa-chevron-right"></i> Holidays</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="aca-footer-bottom">
+                <p>&copy; 2025 American Cultural Association. Educational purposes only.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

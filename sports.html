@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>American Sports - ACA</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+    .aca-logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #3C3B6E 0%, #2A2A5E 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 15px;
+            border: 2px solid #B22234;
+            object-fit: cover;
+        }
+        
+        .aca-university-logo {
+            height: 50px;
+            margin-left: 20px;
+            border-radius: 12px;
+            border: 2px solid #3C3B6E;
+            object-fit: cover;
+        }
+
+    /* ТВОИ СТИЛИ ДЛЯ СПОРТИВНОЙ СТРАНИЦЫ */
+    .aca-sports-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+    }
+    
+    .aca-sport-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .aca-sport-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .aca-sport-image {
+        height: 250px;
+        overflow: hidden;
+    }
+    
+    .aca-sport-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .aca-sport-card:hover .aca-sport-image img {
+        transform: scale(1.05);
+    }
+    
+    .aca-sport-content {
+        padding: 25px;
+    }
+    
+    .aca-sport-content h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #3C3B6E;
+    }
+    
+    .aca-sport-content p {
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+    
+    .aca-sport-facts {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+    
+    .aca-sport-facts h4 {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+        color: #B22234;
+    }
+    
+    .aca-sport-facts ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    
+    .aca-sport-facts li {
+        padding: 5px 0;
+        border-bottom: 1px solid #e9ecef;
+        color: #666;
+    }
+    
+    .aca-sport-facts li:last-child {
+        border-bottom: none;
+    }
+    
+    .aca-sport-facts li:before {
+        content: "•";
+        color: #B22234;
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+    }
+    
+    /* Круглое изображение */
+    .aca-sport-image img.aca-round-image {
+        border-radius: 50%;
+    }
+    
+    /* Стили для колледж спорта */
+    .aca-college-sports {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+    }
+    
+    .aca-college-item {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        border-top: 4px solid #3C3B6E;
+    }
+    
+    .aca-college-item h4 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        color: #3C3B6E;
+    }
+    
+    .aca-college-item p {
+        color: #666;
+        line-height: 1.6;
+    }
+
+    /* Герой секция */
+    .aca-hero {
+        background: linear-gradient(rgba(60, 59, 110, 0.8), rgba(178, 34, 52, 0.8)), url('sports-banner.jpg') center/cover no-repeat;
+        height: 450px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: white;
+        position: relative;
+    }
+    
+    .aca-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+    }
+    
+    .aca-hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .aca-hero-content h1 {
+        font-size: 2.8rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    .aca-hero-content p {
+        font-size: 1.3rem;
+        margin-bottom: 25px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Основные секции */
+    .aca-section {
+        padding: 70px 0;
+    }
+    
+    .aca-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #3C3B6E;
+        text-align: center;
+    }
+
+    /* Контейнер */
+    .aca-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="aca-header">
+        <div class="aca-container">
+            <div class="aca-header-content">
+                <div class="aca-logo">
+                    <img class="aca-logo-img" src="logoACA.webp" alt="ACA Logo">
+                    <div>
+                        <h1>American Cultural</h1>
+                        <p>Association</p>
+                    </div>
+                </div>
+                <nav class="aca-nav">
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="cuisine.html">Cuisine</a></li>
+                        <li><a href="music.html">Music</a></li>
+                        <li><a href="movies.html">Movies</a></li>
+                        <li><a href="sports.html" class="aca-active">Sports</a></li>
+                        <li><a href="landmarks.html">Landmarks</a></li>
+                        <li><a href="holidays.html">Holidays</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <img src="logoAITU.jpg" alt="University Logo" class="aca-university-logo">
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="aca-hero">
+        <div class="aca-hero-content">
+            <h1>American Sports Culture</h1>
+            <p>Discover the passion and excitement of America's favorite pastimes</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="aca-main">
+        <div class="aca-container">
+            <!-- Popular Sports Section -->
+            <section class="aca-section">
+                <h2>Most Popular Sports in USA</h2>
+                
+                <div class="aca-sports-grid">
+                    <!-- American Football -->
+                    <div class="aca-sport-card">
+                        <div class="aca-sport-image">
+                            <img src="football.jpg" alt="American Football">
+                        </div>
+                        <div class="aca-sport-content">
+                            <h3>American Football</h3>
+                            <p>The most popular sport in the US, known for the NFL and the Super Bowl - the biggest sporting event in America.</p>
+                            <div class="aca-sport-facts">
+                                <h4>Key Facts:</h4>
+                                <ul>
+                                    <li><strong>League:</strong> NFL (National Football League)</li>
+                                    <li><strong>Season:</strong> September to February</li>
+                                    <li><strong>Famous Teams:</strong> New England Patriots, Dallas Cowboys</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Basketball -->
+                    <div class="aca-sport-card">
+                        <div class="aca-sport-image">
+                            <img src="basketball.jpg" alt="Basketball" class="aca-round-image">
+                        </div>
+                        <div class="aca-sport-content">
+                            <h3>Basketball</h3>
+                            <p>Invented in the USA, basketball is hugely popular with the NBA being the premier league worldwide.</p>
+                            <div class="aca-sport-facts">
+                                <h4>Key Facts:</h4>
+                                <ul>
+                                    <li><strong>League:</strong> NBA (National Basketball Association)</li>
+                                    <li><strong>Season:</strong> October to June</li>
+                                    <li><strong>Famous Players:</strong> Michael Jordan, LeBron James</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Baseball -->
+                    <div class="aca-sport-card">
+                        <div class="aca-sport-image">
+                            <img src="baseball.jpg" alt="Baseball">
+                        </div>
+                        <div class="aca-sport-content">
+                            <h3>Baseball</h3>
+                            <p>Known as "America's pastime," baseball has been popular for over a century.</p>
+                            <div class="aca-sport-facts">
+                                <h4>Key Facts:</h4>
+                                <ul>
+                                    <li><strong>League:</strong> MLB (Major League Baseball)</li>
+                                    <li><strong>Season:</strong> April to October</li>
+                                    <li><strong>Famous Teams:</strong> New York Yankees, Boston Red Sox</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ice Hockey -->
+                    <div class="aca-sport-card">
+                        <div class="aca-sport-image">
+                            <img src="hockey.jpg" alt="Ice Hockey">
+                        </div>
+                        <div class="aca-sport-content">
+                            <h3>Ice Hockey</h3>
+                            <p>Popular in northern states, known for fast pace and physical play.</p>
+                            <div class="aca-sport-facts">
+                                <h4>Key Facts:</h4>
+                                <ul>
+                                    <li><strong>League:</strong> NHL (National Hockey League)</li>
+                                    <li><strong>Season:</strong> October to June</li>
+                                    <li><strong>Famous Teams:</strong> Chicago Blackhawks, Boston Bruins</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- College Sports Section -->
+            <section class="aca-section">
+                <h2>College Sports</h2>
+                <p>College sports are extremely popular in the USA, with many universities having huge stadiums and passionate fan bases.</p>
+                
+                <div class="aca-college-sports">
+                    <div class="aca-college-item">
+                        <h4>NCAA Football</h4>
+                        <p>College football games often attract over 100,000 fans to stadiums.</p>
+                    </div>
+                    <div class="aca-college-item">
+                        <h4>March Madness</h4>
+                        <p>The NCAA basketball tournament is one of the most exciting sporting events.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="aca-footer">
+        <div class="aca-container">
+            <div class="aca-footer-content">
+                <div class="aca-footer-section">
+                    <h3>American Cultural Association</h3>
+                    <p>Exploring the rich heritage and traditions of the United States. Our mission is to promote understanding and appreciation of American culture worldwide.</p>
+                </div>
+                
+                <div class="aca-footer-section">
+                    <h3>Team Members</h3>
+                    <div class="aca-team-members">
+                        <a href="contact.html#ilyas" class="aca-team-member">Iliyas</a>
+                        <a href="contact.html#yerkebulan" class="aca-team-member">Yerkebulan</a>
+                        <a href="contact.html#radmir" class="aca-team-member">Radmir</a>
+                        <a href="contact.html#ramazan" class="aca-team-member">Ramazan</a>
+                    </div>
+                </div>
+                
+                <div class="aca-footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="aca-footer-links">
+                        <li><a href="home.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="cuisine.html"><i class="fas fa-chevron-right"></i> Cuisine</a></li>
+                        <li><a href="music.html"><i class="fas fa-chevron-right"></i> Music</a></li>
+                        <li><a href="movies.html"><i class="fas fa-chevron-right"></i> Movies</a></li>
+                        <li><a href="sports.html"><i class="fas fa-chevron-right"></i> Sports</a></li>
+                        <li><a href="landmarks.html"><i class="fas fa-chevron-right"></i> Landmarks</a></li>
+                        <li><a href="holidays.html"><i class="fas fa-chevron-right"></i> Holidays</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="aca-footer-bottom">
+                <p>&copy; 2025 American Cultural Association. Educational purposes only.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

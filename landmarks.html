@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>American Landmarks - ACA</title>
+    <link rel="stylesheet" href="aca-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .aca-logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #3C3B6E 0%, #2A2A5E 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 15px;
+            border: 2px solid #B22234;
+            object-fit: cover;
+        }
+        
+        .aca-university-logo {
+            height: 50px;
+            margin-left: 20px;
+            border-radius: 12px;
+            border: 2px solid #3C3B6E;
+            object-fit: cover;
+        }
+        
+        /* Hero Section */
+        .aca-landmarks-hero {
+            background: linear-gradient(rgba(60, 59, 110, 0.8), rgba(178, 34, 52, 0.8)), url('Place.webp') center/cover no-repeat;
+            height: 450px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .aca-landmarks-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        
+        .aca-landmarks-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .aca-landmarks-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .aca-landmarks-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        /* Intro Section */
+        .aca-landmarks-intro {
+            padding: 70px 0;
+            background-color: #fff;
+        }
+        
+        .aca-landmarks-intro-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        
+        .aca-landmarks-intro h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #3C3B6E;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .aca-landmarks-intro p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 25px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Landmarks Grid Section */
+        .aca-landmarks-grid-section {
+            padding: 70px 0;
+            background-color: #f5f7fa;
+        }
+        
+        .aca-landmarks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .aca-landmark-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .aca-landmark-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .aca-landmark-card.featured {
+            border: 2px solid #B22234;
+            position: relative;
+        }
+        
+        .aca-landmark-card.featured::before {
+            content: 'Featured';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #B22234;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        .aca-landmark-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .aca-landmark-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .aca-landmark-card:hover .aca-landmark-image img {
+            transform: scale(1.05);
+        }
+        
+        .aca-landmark-info {
+            padding: 25px;
+        }
+        
+        .aca-landmark-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #3C3B6E;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .aca-landmark-location {
+            color: #B22234;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .aca-landmark-location i {
+            margin-right: 8px;
+        }
+        
+        .aca-landmark-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .aca-landmark-facts {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .aca-landmark-facts h4 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #B22234;
+            display: flex;
+            align-items: center;
+        }
+        
+        .aca-landmark-facts h4 i {
+            margin-right: 8px;
+        }
+        
+        .aca-landmark-facts ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .aca-landmark-facts li {
+            padding: 5px 0;
+            border-bottom: 1px solid #e9ecef;
+            color: #666;
+            display: flex;
+            align-items: center;
+        }
+        
+        .aca-landmark-facts li:last-child {
+            border-bottom: none;
+        }
+        
+        .aca-landmark-facts li i {
+            color: #3C3B6E;
+            margin-right: 8px;
+            font-size: 0.8rem;
+        }
+        
+        .aca-visit-section {
+            padding: 70px 0;
+            background-color: #fff;
+        }
+        
+        .aca-visit-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .aca-tip-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-top: 4px solid #3C3B6E;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .aca-tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .aca-tip-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #3C3B6E;
+            font-family: 'Playfair Display', serif;
+            display: flex;
+            align-items: center;
+        }
+        
+        .aca-tip-card h4 i {
+            margin-right: 10px;
+            color: #B22234;
+        }
+        
+        .aca-tip-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .aca-history-section {
+            padding: 70px 0;
+            background-color: #f5f7fa;
+        }
+        
+        .aca-history-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+        
+        .aca-history-content h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: #3C3B6E;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .aca-history-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        .aca-history-timeline {
+            margin-top: 50px;
+        }
+        
+        .aca-history-item {
+            display: flex;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .aca-history-year {
+            min-width: 100px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #B22234;
+            margin-right: 30px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .aca-history-details {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            flex: 1;
+            border-left: 3px solid #3C3B6E;
+        }
+        
+        .aca-history-details h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #3C3B6E;
+        }
+        
+        .aca-history-details p {
+            margin-bottom: 0;
+            color: #666;
+        }
+        
+        .aca-map-section {
+            padding: 70px 0;
+            background-color: #fff;
+        }
+        
+        .aca-map-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+        
+        .aca-landmarks-map {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+        
+        .aca-more-landmarks {
+            padding: 70px 0;
+            background-color: #f5f7fa;
+        }
+        
+        .aca-more-landmarks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .aca-more-landmark-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .aca-more-landmark-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .aca-more-landmark-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #3C3B6E;
+        }
+        
+        .aca-more-landmark-item p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .aca-landmarks-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .aca-landmarks-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .aca-landmarks-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .aca-visit-tips {
+                grid-template-columns: 1fr;
+            }
+            
+            .aca-history-item {
+                flex-direction: column;
+            }
+            
+            .aca-history-year {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .aca-landmarks-map {
+                height: 300px;
+            }
+            
+            .aca-more-landmarks-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .aca-more-landmarks-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="aca-header">
+        <div class="aca-container">
+            <div class="aca-header-content">
+                <div class="aca-logo" style="display: flex; align-items: center;">
+                    <img class="aca-logo-img" src="logoACA.webp" alt="ACA Logo">
+                    <div>
+                        <h1 style="margin: 0; font-size: 24px;">American Cultural</h1>
+                        <p style="margin: 0; font-size: 14px; opacity: 0.8;">Association</p>
+                    </div>
+                </div>
+                <nav class="aca-nav">
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="cuisine.html">Cuisine</a></li>
+                        <li><a href="music.html">Music</a></li>
+                        <li><a href="movies.html">Movies</a></li>
+                        <li><a href="sports.html">Sports</a></li>
+                        <li><a href="landmarks.html" class="aca-active">Landmarks</a></li>
+                        <li><a href="holidays.html">Holidays</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <img src="logoAITU.jpg" alt="University Logo" class="aca-university-logo">
+            </div>
+        </div>
+    </header>
+
+    <section class="aca-landmarks-hero">
+        <div class="aca-landmarks-hero-content">
+            <h1>Historic American Landmarks</h1>
+            <p>Discover the monuments and natural wonders that define America's heritage and tell the story of a nation</p>
+        </div>
+    </section>
+
+    <section class="aca-landmarks-intro">
+        <div class="aca-container">
+            <div class="aca-landmarks-intro-content">
+                <h2>Iconic American Landmarks</h2>
+                <p>From coast to coast, America is home to some of the world's most recognizable landmarks. These monuments, natural wonders, and historic sites tell the story of our nation's history, values, and natural beauty. Each landmark represents a chapter in the American story, from the struggle for independence to the expansion westward and the technological innovations that shaped the modern world.</p>
+                <p>These sites not only attract millions of visitors each year but also serve as enduring symbols of American ideals, achievements, and the diverse natural landscapes that make the United States unique. Preservation efforts ensure that future generations can continue to learn from and be inspired by these national treasures.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="aca-landmarks-grid-section">
+        <div class="aca-container">
+            <h2 class="aca-section-title">Explore American Landmarks</h2>
+            <div class="aca-landmarks-grid">
+                <div class="aca-landmark-card">
+                    <div class="aca-landmark-image">
+                        <img src="statue-liberty.avif" alt="Statue of Liberty">
+                    </div>
+                    <div class="aca-landmark-info">
+                        <h3 class="aca-landmark-title">Statue of Liberty</h3>
+                        <p class="aca-landmark-location"><i class="fas fa-map-marker-alt"></i> New York Harbor, New York</p>
+                        <div class="aca-landmark-description">
+                            <p>A powerful symbol of freedom and democracy, the Statue of Liberty was gifted to the United States by France in 1886 to commemorate the centennial of American independence. Designed by Frédéric Auguste Bartholdi, this colossal neoclassical sculpture stands on Liberty Island in New York Harbor, welcoming immigrants and visitors from around the world.</p>
+                            <p>The statue represents Libertas, the Roman goddess of freedom, who bears a torch and a tabula ansata (a tablet evoking the law) upon which is inscribed the date of the American Declaration of Independence. A broken chain lies at her feet.</p>
+                        </div>
+                        <div class="aca-landmark-facts">
+                            <h4><i class="fas fa-info-circle"></i> Key Facts</h4>
+                            <ul>
+                                <li><i class="fas fa-calendar-alt"></i> <strong>Dedicated:</strong> October 28, 1886</li>
+                                <li><i class="fas fa-ruler-vertical"></i> <strong>Height:</strong> 305 feet (93 meters)</li>
+                                <li><i class="fas fa-weight"></i> <strong>Weight:</strong> 225 tons</li>
+                                <li><i class="fas fa-users"></i> <strong>Visitors:</strong> 4.3 million annually</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aca-landmark-card">
+                    <div class="aca-landmark-image">
+                        <img src="white-house.jpg" alt="The White House">
+                    </div>
+                    <div class="aca-landmark-info">
+                        <h3 class="aca-landmark-title">The White House</h3>
+                        <p class="aca-landmark-location"><i class="fas fa-map-marker-alt"></i> Washington, D.C.</p>
+                        <div class="aca-landmark-description">
+                            <p>The White House has been the official residence and workplace of every U.S. president since John Adams in 1800. Located at 1600 Pennsylvania Avenue NW in Washington, D.C., this neoclassical mansion is an enduring symbol of the American presidency and the executive branch of the federal government.</p>
+                            <p>Designed by Irish architect James Hoban, the building was constructed between 1792 and 1800 using Aquia Creek sandstone painted white. The property has undergone numerous renovations and expansions over the centuries.</p>
+                        </div>
+                        <div class="aca-landmark-facts">
+                            <h4><i class="fas fa-info-circle"></i> Key Facts</h4>
+                            <ul>
+                                <li><i class="fas fa-calendar-alt"></i> <strong>Built:</strong> 1792-1800</li>
+                                <li><i class="fas fa-door-open"></i> <strong>Rooms:</strong> 132 rooms</li>
+                                <li><i class="fas fa-expand"></i> <strong>Area:</strong> 55,000 sq ft</li>
+                                <li><i class="fas fa-tree"></i> <strong>Grounds:</strong> 18 acres</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aca-landmark-card">
+                    <div class="aca-landmark-image">
+                        <img src="mount-rushmore.jpg" alt="Mount Rushmore">
+                    </div>
+                    <div class="aca-landmark-info">
+                        <h3 class="aca-landmark-title">Mount Rushmore</h3>
+                        <p class="aca-landmark-location"><i class="fas fa-map-marker-alt"></i> Black Hills, South Dakota</p>
+                        <div class="aca-landmark-description">
+                            <p>A monumental sculpture carved into granite featuring the faces of four U.S. Presidents: Washington, Jefferson, Theodore Roosevelt, and Lincoln. The memorial represents the first 150 years of American history and has become an iconic symbol of American democracy and presidential leadership.</p>
+                            <p>Sculptor Gutzon Borglum conceived the design and oversaw the project from 1927 until his death in 1941. His son Lincoln Borglum continued the work until funding ran out later that year.</p>
+                        </div>
+                        <div class="aca-landmark-facts">
+                            <h4><i class="fas fa-info-circle"></i> Key Facts</h4>
+                            <ul>
+                                <li><i class="fas fa-calendar-alt"></i> <strong>Completed:</strong> 1941</li>
+                                <li><i class="fas fa-ruler-vertical"></i> <strong>Face Height:</strong> 60 feet each</li>
+                                <li><i class="fas fa-mountain"></i> <strong>Elevation:</strong> 5,725 feet</li>
+                                <li><i class="fas fa-users"></i> <strong>Visitors:</strong> 3 million annually</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aca-landmark-card featured">
+                    <div class="aca-landmark-image">
+                        <img src="grand-canyon.jpg" alt="Grand Canyon">
+                    </div>
+                    <div class="aca-landmark-info">
+                        <h3 class="aca-landmark-title">Grand Canyon</h3>
+                        <p class="aca-landmark-location"><i class="fas fa-map-marker-alt"></i> Arizona</p>
+                        <div class="aca-landmark-description">
+                            <p>One of the world's most spectacular natural wonders, carved by the Colorado River over millions of years. A UNESCO World Heritage Site since 1979, the canyon showcases billions of years of geological history through its immense size and beautifully colored landscape.</p>
+                            <p>President Theodore Roosevelt was a major proponent of preserving the Grand Canyon area, visiting it on numerous occasions to hunt mountain lions and enjoy the breathtaking scenery.</p>
+                        </div>
+                        <div class="aca-landmark-facts">
+                            <h4><i class="fas fa-info-circle"></i> Key Facts</h4>
+                            <ul>
+                                <li><i class="fas fa-ruler"></i> <strong>Length:</strong> 277 miles</li>
+                                <li><i class="fas fa-arrows-alt-h"></i> <strong>Width:</strong> 4-18 miles</li>
+                                <li><i class="fas fa-arrows-alt-v"></i> <strong>Depth:</strong> 6,000 feet</li>
+                                <li><i class="fas fa-users"></i> <strong>Visitors:</strong> 6 million annually</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aca-landmark-card">
+                    <div class="aca-landmark-image">
+                        <img src="golden-gate-bridge.avif" alt="Golden Gate Bridge">
+                    </div>
+                    <div class="aca-landmark-info">
+                        <h3 class="aca-landmark-title">Golden Gate Bridge</h3>
+                        <p class="aca-landmark-location"><i class="fas fa-map-marker-alt"></i> San Francisco, California</p>
+                        <div class="aca-landmark-description">
+                            <p>An iconic suspension bridge connecting San Francisco to Marin County, recognized worldwide for its Art Deco design and International Orange color. When completed in 1937, it was both the longest and the tallest suspension bridge in the world.</p>
+                            <p>Designed by engineer Joseph Strauss and architect Irving Morrow, the bridge's color was chosen both for its visibility in fog and its complement to the natural surroundings.</p>
+                        </div>
+                        <div class="aca-landmark-facts">
+                            <h4><i class="fas fa-info-circle"></i> Key Facts</h4>
+                            <ul>
+                                <li><i class="fas fa-calendar-alt"></i> <strong>Opened:</strong> May 27, 1937</li>
+                                <li><i class="fas fa-ruler"></i> <strong>Length:</strong> 8,980 feet</li>
+                                <li><i class="fas fa-ruler-vertical"></i> <strong>Height:</strong> 746 feet</li>
+                                <li><i class="fas fa-car"></i> <strong>Daily Traffic:</strong> 112,000 vehicles</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aca-landmark-card">
+                    <div class="aca-landmark-image">
+                        <img src="lincoln-memorial.jpg" alt="Lincoln Memorial">
+                    </div>
+                    <div class="aca-landmark-info">
+                        <h3 class="aca-landmark-title">Lincoln Memorial</h3>
+                        <p class="aca-landmark-location"><i class="fas fa-map-marker-alt"></i> Washington, D.C.</p>
+                        <div class="aca-landmark-description">
+                            <p>A neoclassical temple honoring Abraham Lincoln, the 16th President who preserved the Union during the Civil War and worked to end slavery. The memorial has been the site of many historic events, most notably Martin Luther King Jr.'s "I Have a Dream" speech in 1963.</p>
+                            <p>Designed by architect Henry Bacon, the memorial takes the form of a Greek Doric temple and contains a large seated sculpture of Lincoln and inscriptions of two well-known speeches by Lincoln.</p>
+                        </div>
+                        <div class="aca-landmark-facts">
+                            <h4><i class="fas fa-info-circle"></i> Key Facts</h4>
+                            <ul>
+                                <li><i class="fas fa-calendar-alt"></i> <strong>Dedicated:</strong> May 30, 1922</li>
+                                <li><i class="fas fa-ruler-vertical"></i> <strong>Statue Height:</strong> 19 feet</li>
+                                <li><i class="fas fa-weight"></i> <strong>Statue Weight:</strong> 175 tons</li>
+                                <li><i class="fas fa-users"></i> <strong>Visitors:</strong> 6 million annually</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="aca-visit-section">
+        <div class="aca-container">
+            <h2 class="aca-section-title">Plan Your Landmark Adventure</h2>
+            <div class="aca-visit-tips">
+                <div class="aca-tip-card">
+                    <h4><i class="fas fa-calendar-alt"></i> Best Time to Visit</h4>
+                    <p>Spring (April-May) and fall (September-October) offer the most pleasant weather conditions for visiting most American landmarks. These seasons typically feature mild temperatures, fewer crowds compared to summer months, and beautiful natural scenery.</p>
+                </div>
+                
+                <div class="aca-tip-card">
+                    <h4><i class="fas fa-ticket-alt"></i> Booking in Advance</h4>
+                    <p>Many popular American landmarks require advance reservations, sometimes months ahead of your visit. The Statue of Liberty, White House tours, and Alcatraz Island often sell out quickly. Check official National Park Service websites for timed entry requirements.</p>
+                </div>
+                
+                <div class="aca-tip-card">
+                    <h4><i class="fas fa-clock"></i> Planning Your Time</h4>
+                    <p>Security screenings and large crowds can significantly impact your visit time. Arrive early to avoid the longest lines, especially at popular landmarks. Allow extra time for parking, which can be challenging at busy sites.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="aca-history-section">
+        <div class="aca-container">
+            <div class="aca-history-content">
+                <h2>Historical Significance of American Landmarks</h2>
+                <p>American landmarks represent more than just physical structures or natural wonders—they embody the nation's history, values, and aspirations. These sites serve as tangible connections to pivotal moments in American history, from the founding of the republic to the expansion westward and the struggle for civil rights.</p>
+                
+                <div class="aca-history-timeline">
+                    <div class="aca-history-item">
+                        <div class="aca-history-year">1872</div>
+                        <div class="aca-history-details">
+                            <h4>First National Park Established</h4>
+                            <p>Yellowstone became the world's first national park, setting a precedent for the preservation of natural wonders and the establishment of the National Park System.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="aca-history-item">
+                        <div class="aca-history-year">1906</div>
+                        <div class="aca-history-details">
+                            <h4>Antiquities Act Passed</h4>
+                            <p>President Theodore Roosevelt signed the Antiquities Act, giving presidents the authority to create national monuments from federal lands to protect significant natural, cultural, or scientific features.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="aca-history-item">
+                        <div class="aca-history-year">1916</div>
+                        <div class="aca-history-details">
+                            <h4>National Park Service Created</h4>
+                            <p>President Woodrow Wilson established the National Park Service through the Organic Act, creating a federal agency dedicated to protecting and managing America's natural and cultural resources.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="aca-history-item">
+                        <div class="aca-history-year">1966</div>
+                        <div class="aca-history-details">
+                            <h4>National Historic Preservation Act</h4>
+                            <p>This legislation established the National Register of Historic Places and the process for listing properties, creating a comprehensive system for preserving America's historic resources.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="aca-map-section">
+        <div class="aca-container">
+            <h2 class="aca-section-title">Landmarks Across America</h2>
+            <p class="aca-landmarks-intro-content" style="text-align: center; margin-bottom: 30px;">Explore the geographical distribution of major American landmarks from coast to coast</p>
+            <div class="aca-map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20355104.85556845!2d-108.8593137982782!3d45.649979467358776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2z0KHQvtC10LTQuNC90LXQvdC90YvQtSDQqNGC0LDRgtGLINCQ0LzQtdGA0LjQutC4!5e0!3m2!1sru!2skz!4v1758480189379!5m2!1sru!2skz" 
+                    class="aca-landmarks-map"
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="aca-more-landmarks">
+        <div class="aca-container">
+            <h2 class="aca-section-title">More Iconic American Landmarks</h2>
+            <div class="aca-more-landmarks-grid">
+                <div class="aca-more-landmark-item">
+                    <h4>Independence Hall</h4>
+                    <p>Philadelphia, Pennsylvania - Birthplace of the Declaration of Independence and U.S. Constitution</p>
+                </div>
+                
+                <div class="aca-more-landmark-item">
+                    <h4>Yellowstone National Park</h4>
+                    <p>Wyoming/Montana/Idaho - World's first national park with geothermal wonders and diverse wildlife</p>
+                </div>
+                
+                <div class="aca-more-landmark-item">
+                    <h4>Alcatraz Island</h4>
+                    <p>San Francisco, California - Former federal prison with rich history and stunning bay views</p>
+                </div>
+                
+                <div class="aca-more-landmark-item">
+                    <h4>Gateway Arch</h4>
+                    <p>St. Louis, Missouri - Monument symbolizing America's westward expansion and pioneer spirit</p>
+                </div>
+                
+                <div class="aca-more-landmark-item">
+                    <h4>Niagara Falls</h4>
+                    <p>New York/Ontario - Majestic waterfalls straddling the US-Canada border</p>
+                </div>
+                
+                <div class="aca-more-landmark-item">
+                    <h4>Space Needle</h4>
+                    <p>Seattle, Washington - Iconic observation tower built for the 1962 World's Fair</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="aca-footer">
+        <div class="aca-container">
+            <div class="aca-footer-content">
+                <div class="aca-footer-section">
+                    <h3>American Cultural Association</h3>
+                    <p>Exploring the rich heritage and traditions of the United States. Our mission is to promote understanding and appreciation of American culture worldwide.</p>
+                </div>
+                
+                <div class="aca-footer-section">
+                    <h3>Team Members</h3>
+                    <div class="aca-team-members">
+                        <a href="contact.html#ilyas" class="aca-team-member">Iliyas</a>
+                        <a href="contact.html#yerkebulan" class="aca-team-member">Yerkebulan</a>
+                        <a href="contact.html#radmir" class="aca-team-member">Radmir</a>
+                        <a href="contact.html#ramazan" class="aca-team-member">Ramazan</a>
+                    </div>
+                </div>
+                
+                <div class="aca-footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="aca-footer-links">
+                        <li><a href="home.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="cuisine.html"><i class="fas fa-chevron-right"></i> Cuisine</a></li>
+                        <li><a href="music.html"><i class="fas fa-chevron-right"></i> Music</a></li>
+                        <li><a href="movies.html"><i class="fas fa-chevron-right"></i> Movies</a></li>
+                        <li><a href="sports.html"><i class="fas fa-chevron-right"></i> Sports</a></li>
+                        <li><a href="landmarks.html"><i class="fas fa-chevron-right"></i> Landmarks</a></li>
+                        <li><a href="holidays.html"><i class="fas fa-chevron-right"></i> Holidays</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="aca-footer-bottom">
+                <p>&copy; 2025 American Cultural Association. Educational purposes only.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>American Cuisine - ACA</title>
+    <link rel="stylesheet" href="aca-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .aca-logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #3C3B6E 0%, #2A2A5E 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 15px;
+            border: 2px solid #B22234;
+            object-fit: cover;
+        }
+        
+        .aca-university-logo {
+            height: 50px;
+            margin-left: 20px;
+            border-radius: 12px;
+            border: 2px solid #3C3B6E;
+            object-fit: cover;
+        }
+        /* Hero Section */
+        .aca-cuisine-hero {
+            background: linear-gradient(rgba(60, 59, 110, 0.8), rgba(178, 34, 52, 0.8)), url('Cuisine Image.webp') center/cover no-repeat;
+            height: 450px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .aca-cuisine-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        
+        .aca-cuisine-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .aca-cuisine-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .aca-cuisine-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        /* Cuisine Intro Section */
+        .aca-cuisine-intro {
+            padding: 70px 0;
+            background-color: #fff;
+        }
+        
+        .aca-cuisine-intro-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        
+        .aca-cuisine-intro h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #3C3B6E;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .aca-cuisine-intro p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 25px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .aca-quote-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid #B22234;
+            margin: 40px auto;
+            max-width: 700px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .aca-quote-box p {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: #3C3B6E;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .aca-quote-box span {
+            color: #B22234;
+            font-weight: 600;
+        }
+        
+        /* Food Cards Section */
+        .aca-food-cards {
+            padding: 70px 0;
+            background-color: #f5f7fa;
+        }
+        
+        .aca-food-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .aca-food-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .aca-food-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .aca-food-card-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .aca-food-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .aca-food-card:hover .aca-food-card-image img {
+            transform: scale(1.05);
+        }
+        
+        .aca-food-card-content {
+            padding: 25px;
+        }
+        
+        .aca-food-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #3C3B6E;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .aca-food-card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .aca-ingredients {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .aca-ingredients h4 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #B22234;
+        }
+        
+        .aca-ingredients ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .aca-ingredients li {
+            padding: 5px 0;
+            border-bottom: 1px solid #e9ecef;
+            color: #666;
+        }
+        
+        .aca-ingredients li:last-child {
+            border-bottom: none;
+        }
+        
+        .aca-ingredients li:before {
+            content: "•";
+            color: #B22234;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        /* Regional Cuisine Section */
+        .aca-regional-cuisine {
+            padding: 70px 0;
+            background-color: #fff;
+        }
+        
+        .aca-regional-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .aca-regional-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            color: red;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-top: 4px solid #3C3B6E;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .aca-regional-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .aca-regional-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #3C3B6E;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .aca-regional-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .aca-regional-card ul {
+            margin-top: 15px;
+            padding-left: 20px;
+            color: #666;
+        }
+        
+        .aca-regional-card li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        /* History Section */
+        .aca-cuisine-history {
+            padding: 70px 0;
+            background-color: #f5f7fa;
+        }
+        
+        .aca-history-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+        
+        .aca-history-content h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: #3C3B6E;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .aca-history-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        .aca-history-timeline {
+            margin-top: 50px;
+        }
+        
+        .aca-timeline-item {
+            display: flex;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .aca-timeline-year {
+            min-width: 100px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #B22234;
+            margin-right: 30px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .aca-timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            flex: 1;
+            border-left: 3px solid #3C3B6E;
+        }
+        
+        .aca-timeline-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #3C3B6E;
+        }
+        
+        .aca-timeline-content p {
+            margin-bottom: 0;
+            color: #666;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .aca-cuisine-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .aca-cuisine-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .aca-food-cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .aca-regional-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .aca-timeline-item {
+                flex-direction: column;
+            }
+            
+            .aca-timeline-year {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="aca-header">
+        <div class="aca-container">
+            <div class="aca-header-content">
+                <div class="aca-logo" style="display: flex; align-items: center;">
+                    <img class="aca-logo-img" src="logoACA.webp" alt="ACA Logo">
+                    <div>
+                        <h1 style="margin: 0; font-size: 24px;">American Cultural</h1>
+                        <p style="margin: 0; font-size: 14px; opacity: 0.8;">Association</p>
+                    </div>
+                </div>
+                <nav class="aca-nav">
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="cuisine.html" class="aca-active">Cuisine</a></li>
+                        <li><a href="music.html">Music</a></li>
+                        <li><a href="movies.html">Movies</a></li>
+                        <li><a href="sports.html">Sports</a></li>
+                        <li><a href="landmarks.html">Landmarks</a></li>
+                        <li><a href="holidays.html">Holidays</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <img src="logoAITU.jpg" alt="University Logo" class="aca-university-logo">
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="aca-cuisine-hero">
+        <div class="aca-cuisine-hero-content">
+            <h1>Tastes of America</h1>
+            <p>Discover the rich culinary heritage of the United States through its diverse flavors and regional specialties</p>
+        </div>
+    </section>
+
+    <!-- Cuisine Intro Section -->
+    <section class="aca-cuisine-intro">
+        <div class="aca-container">
+            <div class="aca-cuisine-intro-content">
+                <h2>American Culinary Journey</h2>
+                <p>American cuisine is a vibrant kaleidoscope of flavors, inspired by cultures from all over the world. From classic comfort foods to innovative fusion dishes, the culinary landscape of the United States tells the story of immigration, regional diversity, and cultural exchange.</p>
+                <p>Each region boasts its own distinctive culinary traditions, shaped by local ingredients, historical influences, and cultural heritage. From the seafood shores of New England to the barbecue pits of Texas, American food reflects the nation's rich tapestry of experiences and traditions.</p>
+                
+                <div class="aca-quote-box">
+                    <p>"American food is an ever-evolving story of immigration, adaptation, and innovation. It's not just sustenance; it's a narrative of the American experience itself."</p>
+                    <span>— Culinary Historian John Smith</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Food Cards Section -->
+    <section class="aca-food-cards">
+        <div class="aca-container">
+            <h2 class="aca-section-title">Iconic American Dishes</h2>
+            <div class="aca-food-cards-grid">
+                <div class="aca-food-card">
+                    <div class="aca-food-card-image">
+                        <img src="burger.png" alt="Classic American Burger">
+                    </div>
+                    <div class="aca-food-card-content">
+                        <h3>Classic American Burger</h3>
+                        <p>The hamburger stands as an iconic symbol of American cuisine. This juicy masterpiece typically features a grilled beef patty, melted cheese, crisp lettuce, ripe tomatoes, onions, pickles, and special sauce, all nestled between a soft sesame seed bun.</p>
+                        <p>First popularized at the 1904 St. Louis World's Fair, the burger has evolved into countless regional variations across the United States.</p>
+                        <div class="aca-ingredients">
+                            <h4>Key Ingredients:</h4>
+                            <ul>
+                                <li>Ground beef (80/20 lean-to-fat ratio)</li>
+                                <li>Brioche or sesame seed bun</li>
+                                <li>American or cheddar cheese</li>
+                                <li>Iceberg lettuce and beefsteak tomatoes</li>
+                                <li>Special sauce (mayo, ketchup, relish, spices)</li>
+                                <li>Dill pickles and thinly sliced onions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aca-food-card">
+                    <div class="aca-food-card-image">
+                        <img src="cus2.png" alt="Traditional Apple Pie">
+                    </div>
+                    <div class="aca-food-card-content">
+                        <h3>Traditional Apple Pie</h3>
+                        <p>Apple pie has become synonymous with American comfort and tradition. This beloved dessert features a flaky, buttery crust enveloping a spiced apple filling, often served warm with a scoop of vanilla ice cream.</p>
+                        <p>The phrase "as American as apple pie" underscores its cultural significance, despite the dessert's European origins. It became particularly popular during the colonial era when apples were abundant.</p>
+                        <div class="aca-ingredients">
+                            <h4>Key Ingredients:</h4>
+                            <ul>
+                                <li>Granny Smith or Honeycrisp apples</li>
+                                <li>Cinnamon, nutmeg, and allspice</li>
+                                <li>Butter-based pie crust</li>
+                                <li>Brown and white sugar</li>
+                                <li>Lemon juice and vanilla extract</li>
+                                <li>Egg wash for golden crust</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aca-food-card">
+                    <div class="aca-food-card-image">
+                        <img src="cus3.png" alt="American Barbecue">
+                    </div>
+                    <div class="aca-food-card-content">
+                        <h3>American Barbecue Tradition</h3>
+                        <p>Barbecue represents one of America's most cherished culinary traditions, with distinct regional styles that reflect local history and preferences. From Texas brisket to Carolina pulled pork, each region has developed its own approach to slow-cooked meats.</p>
+                        <p>True American barbecue involves slow cooking over indirect heat, often for many hours, using specific wood types that impart unique flavors to the meat.</p>
+                        <div class="aca-ingredients">
+                            <h4>Regional Variations:</h4>
+                            <ul>
+                                <li>Texas: Beef brisket with simple salt and pepper rub</li>
+                                <li>Kansas City: Sweet, tomato-based sauces</li>
+                                <li>Carolina: Vinegar-based sauces with pulled pork</li>
+                                <li>Memphis: Dry-rubbed ribs served without sauce</li>
+                                <li>Alabama: White sauce for chicken barbecue</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Regional Cuisine Section -->
+    <section class="aca-regional-cuisine">
+        <div class="aca-container">
+            <h2 class="aca-section-title">Regional American Cuisines</h2>
+            <div class="aca-regional-grid">
+                <div class="aca-regional-card">
+                    <h3>New England</h3>
+                    <p>Known for its seafood and hearty comfort foods, influenced by English culinary traditions.</p>
+                    <ul>
+                        <li>Clam Chowder</li>
+                        <li>Lobster Rolls</li>
+                        <li>Baked Beans</li>
+                        <li>Boston Cream Pie</li>
+                    </ul>
+                </div>
+                
+                <div class="aca-regional-card">
+                    <h3>Southern Cuisine</h3>
+                    <p>Characterized by fried foods, greens, and dishes with African, English, and French influences.</p>
+                    <ul style="color: red">
+                        <li>Fried Chicken</li>
+                        <li>Shrimp and Grits</li>
+                        <li>Collard Greens</li>
+                        <li>Biscuits and Gravy</li>
+                    </ul>
+                </div>
+                
+                <div class="aca-regional-card">
+                    <h3>Southwestern</h3>
+                    <p>Blends Native American and Mexican flavors with American cooking techniques.</p>
+                    <ul>
+                        <li>Tex-Mex Enchiladas</li>
+                        <li>Chili Con Carne</li>
+                        <li>Breakfast Burritos</li>
+                        <li>Fajitas</li>
+                    </ul>
+                </div>
+                
+                <div class="aca-regional-card">
+                    <h3>Pacific Northwest</h3>
+                    <p>Focuses on fresh, local ingredients including seafood, berries, and forest mushrooms.</p>
+                    <ul>
+                        <li>Salmon Dishes</li>
+                        <li>Dungeness Crab</li>
+                        <li>Hazelnut-based Recipes</li>
+                        <li>Marionberry Desserts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="aca-cuisine-history">
+        <div class="aca-container">
+            <div class="aca-history-content">
+                <h2>Evolution of American Cuisine</h2>
+                <p>The story of American food is a narrative of adaptation and innovation. From Native American agricultural practices to the culinary contributions of immigrants from every corner of the globe, American cuisine has continuously evolved while maintaining distinct regional characteristics.</p>
+                <p>The 20th century brought industrialization and fast food, but recent decades have seen a resurgence of interest in farm-to-table movements, artisanal foods, and a rediscovery of regional culinary traditions.</p>
+                
+                <div class="aca-history-timeline">
+                    <div class="aca-timeline-item">
+                        <div class="aca-timeline-year">1600s-1700s</div>
+                        <div class="aca-timeline-content">
+                            <h4>Colonial Foundations</h4>
+                            <p>Native American ingredients (corn, beans, squash) combined with European cooking techniques. Development of regional cooking styles based on available ingredients.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="aca-timeline-item">
+                        <div class="aca-timeline-year">1800s</div>
+                        <div class="aca-timeline-content">
+                            <h4>Immigration and Expansion</h4>
+                            <p>Wave of immigrants from Germany, Ireland, Italy, and China introduced new foods and cooking methods. Development of distinct regional cuisines as the country expanded westward.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="aca-timeline-item">
+                        <div class="aca-timeline-year">1900s</div>
+                        <div class="aca-timeline-content">
+                            <h4>Industrialization and Fast Food</h4>
+                            <p>Mass production, canned foods, and the rise of fast food chains. Development of convenience foods and standardized restaurant menus across the country.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="aca-timeline-item">
+                        <div class="aca-timeline-year">2000s-Present</div>
+                        <div class="aca-timeline-content">
+                            <h4>Culinary Renaissance</h4>
+                            <p>Farm-to-table movement, rediscovery of regional traditions, fusion cuisines, and emphasis on sustainability and locally sourced ingredients.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="aca-footer">
+        <div class="aca-container">
+            <div class="aca-footer-content">
+                <div class="aca-footer-section">
+                    <h3>American Cultural Association</h3>
+                    <p>Exploring the rich heritage and traditions of the United States. Our mission is to promote understanding and appreciation of American culture worldwide.</p>
+                </div>
+                
+                <div class="aca-footer-section">
+                    <h3>Team Members</h3>
+                    <div class="aca-team-members">
+                        <a href="contact.html#ilyas" class="aca-team-member">Iliyas</a>
+                        <a href="contact.html#yerkebulan" class="aca-team-member">Yerkebulan</a>
+                        <a href="contact.html#radmir" class="aca-team-member">Radmir</a>
+                        <a href="contact.html#ramazan" class="aca-team-member">Ramazan</a>
+                    </div>
+                </div>
+                
+                <div class="aca-footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="aca-footer-links">
+                        <li><a href="home.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="cuisine.html"><i class="fas fa-chevron-right"></i> Cuisine</a></li>
+                        <li><a href="music.html"><i class="fas fa-chevron-right"></i> Music</a></li>
+                        <li><a href="movies.html"><i class="fas fa-chevron-right"></i> Movies</a></li>
+                        <li><a href="sports.html"><i class="fas fa-chevron-right"></i> Sports</a></li>
+                        <li><a href="landmarks.html"><i class="fas fa-chevron-right"></i> Landmarks</a></li>
+                        <li><a href="holidays.html"><i class="fas fa-chevron-right"></i> Holidays</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="aca-footer-bottom">
+                <p>&copy; 2025 American Cultural Association. Educational purposes only.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
